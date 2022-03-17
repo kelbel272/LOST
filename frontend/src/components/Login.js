@@ -3,18 +3,18 @@ import { Grid, Button, ButtonGroup, Typography } from "@material-ui/core";
 import Home from './Home';
 import SongPage from './SongPage';
 import Settings from './Settings';
-import { 
-    BrowserRouter as Router, 
-    Switch, 
-    Route, 
-    Link, 
-    Redirect 
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    Redirect
 } from "react-router-dom"
 
 
 export default class Login extends Component {
 
-    static defaultProps ={
+    static defaultProps = {
         nightMode: false,
     };
 
@@ -37,8 +37,15 @@ export default class Login extends Component {
             }),
         };
         fetch("/api/create-home", requestOptions)
-        .then((response) => response.json())
-        .then((data) => this.props.history.push("/home/" + data.code)); //redirect user to room/roomcodenamehere
+            .then((response) => response.json())
+            .then((data) => {
+                //test for error (this.props.history <- shows undefined)
+                console.log(this.props.history)
+                //new code to redirect user
+                window.location.href = '/home/' + data.code
+                //old code
+                //this.props.history.push("/home/" + data.code)
+            }); //redirect user to room/roomcodenamehere
     }
 
     renderLoginPage() {
@@ -63,16 +70,16 @@ export default class Login extends Component {
 
     render() {
         return (
-        <Router>
-            <Switch>
-                <Route exact path="/">
-                    {this.renderLoginPage()}
-                </Route>
-                <Route path="/home" component={Home} /> 
-                <Route path="/song" component={SongPage} />
-                <Route path="/settings" component={Settings} />
-            </Switch>
-        </Router>
+            <Router>
+                <Switch>
+                    <Route exact path="/">
+                        {this.renderLoginPage()}
+                    </Route>
+                    <Route path="/home" component={Home} />
+                    <Route path="/song" component={SongPage} />
+                    <Route path="/settings" component={Settings} />
+                </Switch>
+            </Router>
         );
     }
 }

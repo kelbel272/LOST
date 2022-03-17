@@ -57,6 +57,8 @@ class CreateHomeView(APIView):
                 home = queryset[0]
                 home.night_mode = night_mode
                 home.save(update_fields=['night_mode'])
+                #return statement added so that the user's home page is returned after updating
+                return Response(HomeSerializer(home).data, status=status.HTTP_200_OK)
             #Create home page 
             else: 
                 home = Home(user=user, night_mode=night_mode)
