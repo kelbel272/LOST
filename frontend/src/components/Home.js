@@ -11,8 +11,10 @@ export default class Home extends Component {
             spotifyAuthenticated: false,
         };
        
-        this.getCurrentSong = this.getCurrentSong.bind(this);
-        this.homeCode = this.props.match.params.homeCode;
+        //this.getCurrentSong = this.getCurrentSong.bind(this);
+        //this.homeCode = this.props.match.params.roomCode;
+        //to get home code, this.props.match.params isnt working, it comes back as undefined
+        this.homeCode = location.pathname.slice(location.pathname.lastIndexOf('/') + 1, location.pathname.length);
         this.getHomeDetails = this.getHomeDetails.bind(this);
         this.authenticateSpotify = this.authenticateSpotify.bind(this);
         this.getHomeDetails();  //Update the states
